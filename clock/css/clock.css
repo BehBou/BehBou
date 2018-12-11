@@ -1,0 +1,136 @@
+/******************************************************************************
+*
+*        ________
+*    __ /    _  _|
+*   /_//  _  \\ \
+*   |_|| | | || |   ____  _     Copyright (c) IoTize 2017
+*   | || |_| || | |   /  / \    http://www.iotize.com
+*   \ \\     // / |  /   |--
+*    \_\\___//_/  | /___ \__
+*
+*
+********************************************************************************
+*@file          : clock.css
+*@author        : IOTIZE
+*@version       : $Id: clock.css 5727 2017-11-09 07:30:50Z yves.ragot $
+*@brief         : Cascading Style Sheet management of clock demo with IoTize module.
+*
+*   THIS SOFTWARE IS PROVIDED BY THE IOTIZE DEVELOPMENT TEAM ``AS IS'' 
+* AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+* PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE IOTIZE' DEVELOPMENT TEAM
+* OR ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS,
+* OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+* WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+* POSSIBILITY OF SUCH DAMAGE.
+*******************************************************************************/
+
+body
+{
+    background:white;
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+#clock_commands
+{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    padding: 20px 0 0 0;
+}
+
+#clock_ana
+{
+    position: relative;
+    background: url("../images/clockface.jpg");
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 300px;
+    margin: 5px auto 0 auto;
+    list-style: none;
+}
+
+#sechand, #minhand, #hourhand
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+#sechand
+{
+    background: url("../images/sechand.png");
+    background-repeat: no-repeat;
+    z-index: 3;
+}
+   
+#minhand
+{
+    background: url("../images/minhand.png");
+    background-repeat: no-repeat;
+    z-index: 2;
+}
+   
+#hourhand
+{
+    background: url("../images/hourhand.png");
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+    
+#clock_shadow
+{
+	height:40px;
+    width: 300px;
+    background: -moz-radial-gradient(center, ellipse cover,  #c6c6c6 18%, #ffffff 76%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(18%,#c6c6c6), color-stop(76%,#ffffff)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #c6c6c6 18%,#ffffff 76%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #c6c6c6 18%,#ffffff 76%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #c6c6c6 18%,#ffffff 76%); /* IE10+ */
+    background: radial-gradient(center, ellipse cover,  #c6c6c6 18%,#ffffff 76%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c6c6c6', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    margin: auto;
+}
+    
+.IoTIzeStatusCl
+{
+    display: inline;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.0em;
+    font-weight: bold;
+    line-height: normal;
+    text-align: center;
+}    
+
+#IoTizeStatus
+{
+    font-weight: normal;
+}
+  
+.IoTizeTitle
+{
+    display: inline;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.5em;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    line-height: normal;
+    text-align: center;
+}    
+ 
+.IoTizeValue
+{
+    font-weight: normal;
+}
+
