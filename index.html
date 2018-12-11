@@ -1,0 +1,160 @@
+<!--****************************************************************************
+*
+*        ________
+*    __ /    _  _|
+*   /_//  _  \\ \
+*   |_|| | | || |   ____  _     Copyright (c) IoTize 2017
+*   | || |_| || | |   /  / \    http://www.iotize.com
+*   \ \\     // / |  /   |--
+*    \_\\___//_/  | /___ \__
+*
+*
+********************************************************************************
+*@file          : index.html
+*@author        : IOTIZE
+*@version       : $Id: index.html 5792 2017-11-15 16:30:21Z yves.ragot $
+*@brief         : HTML page of clock demo with IoTize module.
+*
+* "Old School Clock with CSS3 and jQuery" provided by css-tricks
+* at https://css-tricks.com/css3-clock/
+*
+* "Clock Picker" is a clock-style timepicker for Bootstrap
+* provided by © Wang Shenwei. at https://github.com/weareoutman/clockpicker
+*
+* "Modal Window Login Form Effect" provided by designshack.net (Jake Rocheleau)
+* at http://designshack.net/articles/javascript/howto-code-modal-window-login-form
+*
+*   THIS SOFTWARE IS PROVIDED BY THE IOTIZE DEVELOPMENT TEAM ``AS IS'' 
+* AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+* PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE IOTIZE' DEVELOPMENT TEAM
+* OR ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS,
+* OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+* WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+* POSSIBILITY OF SUCH DAMAGE.
+*******************************************************************************/-->
+
+<!DOCTYPE html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"">
+    <title>IoTize Clock Demo</title>
+
+    <!-- bootstrap/jquery includes -->
+    <script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+
+    <!-- clock picker includes -->
+    <link rel="stylesheet" type="text/css" href="clockpicker/css/bootstrap-clockpicker.min.css">
+    <script type='text/javascript'src='clockpicker/js/bootstrap-clockpicker.min.js'></script>
+
+    <!-- modal includes -->
+    <script type="text/javascript" src="modal/js/jquery.leanModal.min.js"></script>
+    <link rel="stylesheet" href="modal/css/modal.css" />
+
+    <!-- specific includes -->
+    <link rel="stylesheet" href="clock/css/clock.css" />
+    <script type="text/javascript" src="clock/js/clock.js"></script>
+</head>
+
+<body>
+
+    <h1>IoTize Clock Demo</h1>
+
+    <!-- IoTize serial number -->
+    <div class="center" >
+        <span class ="IoTizeTitle">
+            S/N:
+            <span class="IoTizeValue" id="IoTize_SN"> xxxx </span>
+        </span>
+    </div>
+
+    <!-- Host protocols -->
+    <div class="center" >
+        <span class ="IoTizeTitle">
+            Available host protocols:
+            <span class="IoTizeValue" id="HostProtocols"> xxx </span>
+        </span>
+    </div>
+
+    <!-- Target protocols -->
+    <div class="center" >
+        <span class ="IoTizeTitle">
+            Available target protocols:
+            <span class="IoTizeValue" id="TargetProtocols"> xxx </span>
+        </span>
+    </div>
+    
+    <!-- Current Host protocol -->
+    <div class="center" >
+        <span class ="IoTizeTitle">
+            Current host protocol:
+            <span class="IoTizeValue" id="CurHostProtocol"> xxx </span>
+        </span>
+    </div>
+
+    <!-- Current Target protocol -->
+    <div class="center" >
+        <span class ="IoTizeTitle">
+            Current target protocol:
+            <span class="IoTizeValue" id="CurTargetProtocol"> xxx </span>
+        </span>
+    </div>
+
+    <!-- clock -->
+    <ul id="clock_ana"> 
+        <li id="sechand"></li>
+        <li id="hourhand"></li>
+        <li id="minhand"></li>
+    </ul>
+    
+    <div id="clock_shadow"></div>
+
+    <div id="clock_commands">
+
+        <!-- clockpicker -->
+        <div class="input-group clockpicker" data-placement="top" data-align="center" data-autoclose="false" data-donetext="Done">
+            <input type="text" class="form-control" value="12:00" disabled >
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span>
+            </span>
+        </div>
+            
+        <!-- login button -->
+        <div id="login-button" a href="#loginmodal"  class="input-group-addon" style="border-radius: 3px">
+            <span class="glyphicon glyphicon-user"></span>
+        </div>
+            
+        <!-- login form -->
+         <div id="loginmodal" style="display:none">
+            <h2>User Login</h2>
+            <form id="loginform" name="loginform" method="post" action="index.html">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" class="txtfield" tabindex="1">
+              
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" class="txtfield" tabindex="2">
+              
+                <div class="center"><input type="button" name="loginbtn" id="loginbtn" value="Login" class="flatbtn hidemodal" onClick="login()" ></div>
+                <div class="center"><input type="button" name="logouttn" id="logouttn" value="Logout" class="flatbtn-gr hidemodal" onClick="logout()"></div>
+            </form>
+        </div>
+      
+    </div>
+    
+    <div class="center" >
+        <span class="IoTIzeStatusCl">
+            Status:
+            <span id="IoTizeStatus"> 0 </span>        
+        </span>
+    </div>
+    
+    <script type="text/javascript">
+    </script>
+
+</body>
+</html>

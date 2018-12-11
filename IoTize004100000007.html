@@ -1,0 +1,141 @@
+<!-- 
+Generated with IoTize Application Generator tool for TapNPass device.
+Generated on Tue Dec 11 2018 16:12:05 GMT+0100 (Paris, Madrid)
+Generator version 0.0.1-alpha.1
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+    <!-- Optional JavaScript -->
+    <script src="bootstrap/js/jquery-3.3.1.min.js"></script>
+    <!-- <script src="bootstrap/js/popper.min.js"></script> -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/jquery.toast.min.css" />
+
+    <title>Demo Clock</title>
+    <script type="text/javascript" src="js/rxjs-6.3.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.toast.min.js"></script>
+    <script type="text/javascript" src="js/iotize-device-client.min.js"></script>
+    <script type="text/javascript" src="js/iotize-device-com-websocket.min.js"></script>
+    <script type="text/javascript" src="js/iotize-device-com-webview.min.js"></script>
+    <script type="text/javascript" src="js/iotize-device-com-mqtt.min.js"></script>
+    <script type="text/javascript" src="js/load-device.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <!-- script functions for registering and use returned vars -->
+
+    <script>
+    if (console){
+        console.debug = function(){}
+        console.log = function(){}
+        console.verbose = function(){}
+    }        const ANONYMOUS_PROFILE_ID = 0;
+        const SN_Module = "IoTize004100000007";
+        const GENERATOR_TARGET_CONFIG_VERSION = "1.0.1";
+        const UnitMap = {
+            1: 'BYTE',
+            2: 'HALFWORD',
+            3: 'WORD'
+        };
+        // Global tap device object 
+        var device;
+        window.onload = function(){
+            try{
+                device = loadIoTizeDevice();
+                device.client
+                    .onConnectionStateChange()
+                    .subscribe({
+                        next: (event) => {
+                            console.log('New connection state:', event);
+                            let newState = event.newState;
+                            let oldState = event.oldState;
+                            if (newState === IoTizeDeviceClient.Protocol.Api.ConnectionState.CONNECTED){
+                                onDeviceConnected();
+                            }
+                        }
+                    });
+
+                if (device.isConnected()){
+                    onDeviceConnected();
+                }
+                else {
+                    openProfileIdPage(ANONYMOUS_PROFILE_ID);
+                    let urlParams = getUrlArguments();
+                    if ('websocket' in urlParams || 'mqtt' in urlParams){
+                        device.connect();
+                    }
+
+                }
+            }
+            catch (error){
+                console.error(error);
+                $('#pagecontent').html(`Unexpected error! <br/> ${error}`);  
+            }
+        }   
+
+        function onDeviceConnected(){
+            console.log('Device is now connected!');
+            device.service.interface
+                .getCurrentProfileId()
+                .then((response) => {
+                    openProfileIdPage(response.body());
+                })
+                .catch((err) => {
+                    $('#pagecontent').html(`Device responded with an error. <br/> ${error}`);  
+                });
+        }
+    </script>
+
+    <!-- script for graphical effects -->
+
+    <script src="js/style-effects.js"></script>
+</head>
+
+<body>
+    <div id="pagecontent" class="text-center">Loading application ...</div>
+     
+    <div class="modal fade" id="loginDialog" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">User Login</h4>
+                    <button type="button" class="close" data-dismiss="modal" onclick="hidelogin()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputLogin">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inputPassword">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="button" class="btn btn-primary" onclick="login()" data-dismiss="modal">Login</button>
+                                <button type="button" class="btn btn-secondary" onclick="logout()" data-dismiss="modal">Logout</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,729 @@
+<script>
+var variableManager;
+var bundleManager;
+
+function setupVariables(){
+    variableManager = device.variables;
+    variableManager.clear();
+    // Configure variable sTimeGet
+    variableManager
+        .add(
+            "sTimeGet", 
+            {
+                id: 7,
+                converter: new IoTizeDeviceClient.Converter.ArrayConverter(device.apiConfig.getBodyConverter("integer_int8"), {
+                sizeOfItem: 8 / 8
+            })
+            }
+        );
+    // Subscribe to variable values stream to update user interface on new values
+    // variableManager.variable("sTimeGet")
+    //     .monitor()
+    //     .values()
+    //     .subscribe({
+    //         next: (value) => {
+    //             setVariableValue(7, value, 0);
+    //         },
+    //         error: (err) => {
+    //             setVariableError(7, "sTimeGet", err);
+    //         },
+    //         complete: () => {
+    //             console.log('MONITORING COMPLETE FOR sTimeGet')
+    //         }
+    //     });
+    // Configure variable iFlagS3P
+    variableManager
+        .add(
+            "iFlagS3P", 
+            {
+                id: 1,
+                converter: "integer_int32"
+            }
+        );
+    // Subscribe to variable values stream to update user interface on new values
+    // variableManager.variable("iFlagS3P")
+    //     .monitor()
+    //     .values()
+    //     .subscribe({
+    //         next: (value) => {
+    //             setVariableValue(1, value, 0);
+    //         },
+    //         error: (err) => {
+    //             setVariableError(1, "iFlagS3P", err);
+    //         },
+    //         complete: () => {
+    //             console.log('MONITORING COMPLETE FOR iFlagS3P')
+    //         }
+    //     });
+    // Configure variable iFlagSetup
+    variableManager
+        .add(
+            "iFlagSetup", 
+            {
+                id: 2,
+                converter: "integer_int32"
+            }
+        );
+    // Subscribe to variable values stream to update user interface on new values
+    // variableManager.variable("iFlagSetup")
+    //     .monitor()
+    //     .values()
+    //     .subscribe({
+    //         next: (value) => {
+    //             setVariableValue(2, value, 0);
+    //         },
+    //         error: (err) => {
+    //             setVariableError(2, "iFlagSetup", err);
+    //         },
+    //         complete: () => {
+    //             console.log('MONITORING COMPLETE FOR iFlagSetup')
+    //         }
+    //     });
+    // Configure variable sTimeSetup.Hours
+    variableManager
+        .add(
+            "sTimeSetup.Hours", 
+            {
+                id: 3,
+                converter: "integer_int8"
+            }
+        );
+    // Subscribe to variable values stream to update user interface on new values
+    // variableManager.variable("sTimeSetup.Hours")
+    //     .monitor()
+    //     .values()
+    //     .subscribe({
+    //         next: (value) => {
+    //             setVariableValue(3, value, 0);
+    //         },
+    //         error: (err) => {
+    //             setVariableError(3, "sTimeSetup.Hours", err);
+    //         },
+    //         complete: () => {
+    //             console.log('MONITORING COMPLETE FOR sTimeSetup.Hours')
+    //         }
+    //     });
+    // Configure variable sTimeSetup.Minutes
+    variableManager
+        .add(
+            "sTimeSetup.Minutes", 
+            {
+                id: 4,
+                converter: "integer_int8"
+            }
+        );
+    // Subscribe to variable values stream to update user interface on new values
+    // variableManager.variable("sTimeSetup.Minutes")
+    //     .monitor()
+    //     .values()
+    //     .subscribe({
+    //         next: (value) => {
+    //             setVariableValue(4, value, 0);
+    //         },
+    //         error: (err) => {
+    //             setVariableError(4, "sTimeSetup.Minutes", err);
+    //         },
+    //         complete: () => {
+    //             console.log('MONITORING COMPLETE FOR sTimeSetup.Minutes')
+    //         }
+    //     });
+    // Configure variable sTimeSetup.Seconds
+    variableManager
+        .add(
+            "sTimeSetup.Seconds", 
+            {
+                id: 5,
+                converter: "integer_int8"
+            }
+        );
+    // Subscribe to variable values stream to update user interface on new values
+    // variableManager.variable("sTimeSetup.Seconds")
+    //     .monitor()
+    //     .values()
+    //     .subscribe({
+    //         next: (value) => {
+    //             setVariableValue(5, value, 0);
+    //         },
+    //         error: (err) => {
+    //             setVariableError(5, "sTimeSetup.Seconds", err);
+    //         },
+    //         complete: () => {
+    //             console.log('MONITORING COMPLETE FOR sTimeSetup.Seconds')
+    //         }
+    //     });
+    // Configure variable iFlagTransfer
+    variableManager
+        .add(
+            "iFlagTransfer", 
+            {
+                id: 6,
+                converter: "integer_int32"
+            }
+        );
+    // Subscribe to variable values stream to update user interface on new values
+    // variableManager.variable("iFlagTransfer")
+    //     .monitor()
+    //     .values()
+    //     .subscribe({
+    //         next: (value) => {
+    //             setVariableValue(6, value, 0);
+    //         },
+    //         error: (err) => {
+    //             setVariableError(6, "iFlagTransfer", err);
+    //         },
+    //         complete: () => {
+    //             console.log('MONITORING COMPLETE FOR iFlagTransfer')
+    //         }
+    //     });
+}
+
+function setupBundles(){
+    bundleManager = device.bundles;
+    bundleManager.clear();
+    bundleManager
+        .add(
+            "Main public variables", 
+            {
+                id: 1
+            }
+        );
+
+    // Subscribe to variable values stream to update user interface on new values
+    bundleManager.get("Main public variables")
+        .monitor()
+        .values()
+        .subscribe({
+            next: (values) => {
+                value = values["sTimeGet"];
+                setVariableValue(7, value);
+                value = values["iFlagS3P"];
+                setVariableValue(1, value);
+            },
+            error: (err) => {
+            },
+            complete: () => {
+                console.log('MONITORING COMPLETE FOR BUNDLE Main public variables')
+            }
+        });
+
+    bundleManager.get("Main public variables")
+        .monitor()
+        .events()
+        .subscribe({
+            next: (event) => {
+                console.log(`New event for Main public variables: ${event.type}`)
+                switch (event.type){
+                    case 'READ_ERROR':
+                        setBundleError("#bundle-1", event.payload);
+                        break;
+                    case 'READ_SUCCESS':
+                        setBundleError("#bundle-1", null);
+                        break;
+                    case 'STOP':
+                    case 'PAUSE':
+                        setBundleInfo("#bundle-1", 'Monitoring not running');
+                        break;
+                    case 'START':
+                        setBundleInfo("#bundle-1", null);
+                        break;
+                }
+            }
+        });
+    bundleManager
+        .add(
+            "Setup", 
+            {
+                id: 2
+            }
+        );
+
+    // Subscribe to variable values stream to update user interface on new values
+    bundleManager.get("Setup")
+        .monitor()
+        .values()
+        .subscribe({
+            next: (values) => {
+                value = values["iFlagSetup"];
+                setVariableValue(2, value);
+                value = values["sTimeSetup.Hours"];
+                setVariableValue(3, value);
+                value = values["sTimeSetup.Minutes"];
+                setVariableValue(4, value);
+                value = values["sTimeSetup.Seconds"];
+                setVariableValue(5, value);
+                value = values["iFlagTransfer"];
+                setVariableValue(6, value);
+            },
+            error: (err) => {
+            },
+            complete: () => {
+                console.log('MONITORING COMPLETE FOR BUNDLE Setup')
+            }
+        });
+
+    bundleManager.get("Setup")
+        .monitor()
+        .events()
+        .subscribe({
+            next: (event) => {
+                console.log(`New event for Setup: ${event.type}`)
+                switch (event.type){
+                    case 'READ_ERROR':
+                        setBundleError("#bundle-2", event.payload);
+                        break;
+                    case 'READ_SUCCESS':
+                        setBundleError("#bundle-2", null);
+                        break;
+                    case 'STOP':
+                    case 'PAUSE':
+                        setBundleInfo("#bundle-2", 'Monitoring not running');
+                        break;
+                    case 'START':
+                        setBundleInfo("#bundle-2", null);
+                        break;
+                }
+            }
+        });
+}
+
+function startMonitoring(){
+    console.log(`startMonitoring`);
+    let bundleManager = device.bundles;
+    bundleManager.get("Main public variables").monitor().start({
+        period: 500
+    });
+    bundleManager.get("Setup").monitor().start({
+        period: 500
+    });
+}
+
+function pauseMonitoring(){
+    console.log(`pauseMonitoring`);
+    let bundleManager = device.bundles;
+    bundleManager.get("Main public variables").monitor().pause();
+    bundleManager.get("Setup").monitor().pause();
+}
+    
+initUI();
+setupVariables();
+setupBundles();
+
+if (device.isConnected()){
+    readInfos();
+    startMonitoring();
+}
+</script>
+
+<nav class="navbar sticky-top navbar-dark" style="background: rgba(57,59,11,1)">
+    <button class="btn " type="button" id="sideMenuButton" onclick="toggleSidebar();" style="background: rgba(57,59,11,1)">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <span class="navbar-brand mb-0 h1">Demo Clock</span>
+    <form class="form-inline">
+        <!-- <a class="login-button" onclick="pauseMonitoring()">
+            <h6 class="login-text lead">Pause</h6>
+        </a> -->
+        <a class="login-button" data-toggle="modal" data-target="#loginDialog" onclick="showlogin()">
+            <img class="login-image" src="./images/user-icon.svg" alt="user">
+            <h6 class="login-text lead" id="CurrentProfile">admin</h6>
+        </a>
+    </form>
+</nav>
+
+<div class="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="d-sm-block d-none">
+            <a class="dropdown-item" href="#" onclick="switchToAll();">All Bundles</a>
+        </li>
+        <li class=".d-none .d-sm-block .d-md-none">
+            <a class="dropdown-item" href="#" onclick="switchToCard('#all');">All Variables</a>
+        </li>
+
+    <li>
+        <a href="#" class="dropdown-item" onclick="switchToCard('#bundle-1');">
+            Main public variables
+        </a>
+    </li>
+    <li>
+        <a href="#" class="dropdown-item" onclick="switchToCard('#bundle-2');">
+            Setup
+        </a>
+    </li>        <li>
+            <a href="#" class="dropdown-item" onclick="switchToCard('#info');">Information</a>
+        </li>
+    </ul>
+</div>
+
+<div id="overlay" onclick="toggleSidebar();"></div>
+<div class="alert alert-danger" role="alert" id="Iotize_Alert" >    
+    <span id="Error">Error</span>
+    <button type="button" class="close"  onclick="hideError()">&times;</button>   
+</div>
+<div class="main row">
+    <div class="col-sm-6 col-md-4 d-none d-sm-block bundle">
+        <div class="card" id="all" onclick="clickOnCard('#all');">
+            <div class="card-header">All Variables</div>
+            <div class="bundle_block card-body">
+                <table class="table">
+                    <tbody>
+<tr  id="row-7">
+    <td colspan="3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="3">sTimeGet</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr >
+                <td>0</td>
+                <td class="left-align">
+                    <div class="hiding">
+                        <span class="variable_value  variable-value-7-0">---</span>
+                        <span class="variable_unit"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr >
+                <td>1</td>
+                <td class="left-align">
+                    <div class="hiding">
+                        <span class="variable_value  variable-value-7-1">---</span>
+                        <span class="variable_unit"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr >
+                <td>2</td>
+                <td class="left-align">
+                    <div class="hiding">
+                        <span class="variable_value  variable-value-7-2">---</span>
+                        <span class="variable_unit"></span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </td>
+</tr>
+<tr  id="row-1">
+    <td class="td-label">
+        <div class="left-align variable_name">iFlagS3P</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-1-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+    </td>
+</tr>
+<tr  id="row-2">
+    <td class="td-label">
+        <div class="left-align variable_name">iFlagSetup</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-2-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+    </td>
+</tr>
+<tr  id="row-3">
+    <td class="td-label">
+        <div class="left-align variable_name">sTimeSetup.Hours</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-3-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+    </td>
+</tr>
+<tr  id="row-4">
+    <td class="td-label">
+        <div class="left-align variable_name">sTimeSetup.Minutes</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-4-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+    </td>
+</tr>
+<tr  id="row-5">
+    <td class="td-label">
+        <div class="left-align variable_name">sTimeSetup.Seconds</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-5-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+    </td>
+</tr>
+<tr  id="row-6">
+    <td class="td-label">
+        <div class="left-align variable_name">iFlagTransfer</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-6-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+    </td>
+</tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<div class="col-sm-6 col-md-4 d-none d-sm-block bundle">
+    <div class="card" id="bundle-1" onclick="clickOnCard('#bundle-1');">
+        <div class="bundle_name card-header">Main public variables</div>
+        <div class="bundle_block card-body">
+            <p class="alert alert-danger" style="display:none">
+            An error occured
+            </p>
+            <p class="alert alert-info" style="display:none"></p>
+            <table class="table">
+<tr  class="clickable-table-row editable-container"  id="row-7">
+    <td colspan="3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="3">sTimeGet</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="editable-container">
+                <td>0</td>
+                <td class="left-align">
+                    <div class="hiding">
+                        <span class="variable_value  variable-value-7-0">---</span>
+                        <span class="variable_unit"></span>
+                    </div>
+                    <div class="input-group hiding hide variable-form">
+                        <input type="text" id="input-7-0" class="form-control form-control-7">
+                    </div>
+                </td>
+                <td>
+                    <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+                </td>
+            </tr>
+            <tr class="editable-container">
+                <td>1</td>
+                <td class="left-align">
+                    <div class="hiding">
+                        <span class="variable_value  variable-value-7-1">---</span>
+                        <span class="variable_unit"></span>
+                    </div>
+                    <div class="input-group hiding hide variable-form">
+                        <input type="text" id="input-7-1" class="form-control form-control-7">
+                    </div>
+                </td>
+                <td>
+                    <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+                </td>
+            </tr>
+            <tr class="editable-container">
+                <td>2</td>
+                <td class="left-align">
+                    <div class="hiding">
+                        <span class="variable_value  variable-value-7-2">---</span>
+                        <span class="variable_unit"></span>
+                    </div>
+                    <div class="input-group hiding hide variable-form">
+                        <input type="text" id="input-7-2" class="form-control form-control-7">
+                    </div>
+                </td>
+                <td>
+                    <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+                </td>
+            </tr>
+            <tr class="hiding hide ">
+                <td colspan="3">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" onclick="submitVariableValue(7, 'sTimeGet');">Set</button>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </td>
+</tr>
+<tr  class="clickable-table-row editable-container"  id="row-1">
+    <td class="td-label">
+        <div class="left-align variable_name">iFlagS3P</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-1-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+        <div class="input-group hiding hide variable-form">
+            <input type="text" id="input-1-0" class="form-control form-control-1" value="">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="submitVariableValue(1, 'iFlagS3P', 0);">Set</button>
+            </span>
+        </div>
+    </td>
+    <td>
+        <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+    </td>
+</tr>
+            </table>
+        </div>
+    </div>
+</div><div class="col-sm-6 col-md-4 d-none d-sm-block bundle">
+    <div class="card" id="bundle-2" onclick="clickOnCard('#bundle-2');">
+        <div class="bundle_name card-header">Setup</div>
+        <div class="bundle_block card-body">
+            <p class="alert alert-danger" style="display:none">
+            An error occured
+            </p>
+            <p class="alert alert-info" style="display:none"></p>
+            <table class="table">
+<tr  class="clickable-table-row editable-container"  id="row-2">
+    <td class="td-label">
+        <div class="left-align variable_name">iFlagSetup</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-2-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+        <div class="input-group hiding hide variable-form">
+            <input type="text" id="input-2-0" class="form-control form-control-2" value="">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="submitVariableValue(2, 'iFlagSetup', 0);">Set</button>
+            </span>
+        </div>
+    </td>
+    <td>
+        <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+    </td>
+</tr>
+<tr  class="clickable-table-row editable-container"  id="row-3">
+    <td class="td-label">
+        <div class="left-align variable_name">sTimeSetup.Hours</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-3-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+        <div class="input-group hiding hide variable-form">
+            <input type="text" id="input-3-0" class="form-control form-control-3" value="">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="submitVariableValue(3, 'sTimeSetup.Hours', 0);">Set</button>
+            </span>
+        </div>
+    </td>
+    <td>
+        <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+    </td>
+</tr>
+<tr  class="clickable-table-row editable-container"  id="row-4">
+    <td class="td-label">
+        <div class="left-align variable_name">sTimeSetup.Minutes</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-4-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+        <div class="input-group hiding hide variable-form">
+            <input type="text" id="input-4-0" class="form-control form-control-4" value="">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="submitVariableValue(4, 'sTimeSetup.Minutes', 0);">Set</button>
+            </span>
+        </div>
+    </td>
+    <td>
+        <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+    </td>
+</tr>
+<tr  class="clickable-table-row editable-container"  id="row-5">
+    <td class="td-label">
+        <div class="left-align variable_name">sTimeSetup.Seconds</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-5-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+        <div class="input-group hiding hide variable-form">
+            <input type="text" id="input-5-0" class="form-control form-control-5" value="">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="submitVariableValue(5, 'sTimeSetup.Seconds', 0);">Set</button>
+            </span>
+        </div>
+    </td>
+    <td>
+        <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+    </td>
+</tr>
+<tr  class="clickable-table-row editable-container"  id="row-6">
+    <td class="td-label">
+        <div class="left-align variable_name">iFlagTransfer</div>
+    </td>
+    <td class="left-align">
+        <div class="hiding">
+            <span class="variable_value  variable-value-6-0">---</span>
+            <span class="variable_unit"></span>
+        </div>
+        <div class="input-group hiding hide variable-form">
+            <input type="text" id="input-6-0" class="form-control form-control-6" value="">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" onclick="submitVariableValue(6, 'iFlagTransfer', 0);">Set</button>
+            </span>
+        </div>
+    </td>
+    <td>
+        <span><img class="wrench btn-edit-value" src="images/wrench.svg"></span>
+    </td>
+</tr>
+            </table>
+        </div>
+    </div>
+</div>    
+    <div class="col-sm-6 col-md-4 d-none d-sm-block bundle">
+        <div class="card" id="info" onclick="clickOnCard('#info');">
+            <div class="card-header">Information</div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div class="variable_name left-align">Serial Number</div>
+                        </td>   
+                        <td>
+                            <div class="right-align">
+                                <span id="SerialNumber" class="variable_value">IoTize004100000007</span>
+                            </div>   
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="variable_name left-align">Host Protocol </div>
+                        </td>
+                        <td>
+                            <div class="right-align">
+                                <span class="variable_value" id="HostProtocol"> </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="variable_name left-align">Version</div>
+                        </td>
+                        <td>
+                            <div class="right-align">
+                                <span id="ConfigVersion" class="variable_value">1.0.1</span>
+                            </div>   
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
